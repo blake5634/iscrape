@@ -23,11 +23,14 @@ strategy so it helps to experiment with search setup.
             1.  name the category via the `**Category` tag
             2. `**Seek`'   followed by comma-separated words  and pairs of words. (lower case)
             3. `**Avoid`'  followed by comma-separated words to avoid (lower case)        
-        5. `**Cities`:  follow this with a comma-separated list of cities  (capitolized)
+        5. `**Cities`:  follow this with a comma-separated list of cities  (capitalized)
 
 2. run the script:
-   `> python iscrape.py`  
-   
+   `> python iscrape.py`
+
+    Delays are inserted to keep server loads down.   A big search can take on the order of 
+1hr. 
+
 3. your output will be:
     * `jobs.csv`  a file that can be opened with Excel or LibreOffice
     * `jobs.html` a web page that can be opened by your browser (`<ctl>O`)
@@ -35,4 +38,4 @@ strategy so it helps to experiment with search setup.
 4. use the testing option for quicker preliminary results:
     * `> python iscrape.py  TESTING`
 
-This package was developed at GIX to predict job opportunties for the MSTI(Robotics) program graduates. 
+This package was developed at [GIX](https://gixnetwork.org) to predict job opportunties for the New Master of Science in Technology Innovation, [MSTI(Robotics) program](https://gixnetwork.org/program/msti/) graduates. 
