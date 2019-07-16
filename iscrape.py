@@ -2,22 +2,23 @@ import re
 import nltk as nl
 from nltk.corpus import stopwords
 import sys
+import datetime
+import random
 
 import bs4
 import time
 import requests
-import smtplib
-
+ 
 base_url = 'https://www.indeed.com'
 
-githuburl = 'https://www.cnn.com'   # replace w/ github
+githuburl = 'https://github.com/blake5634/iscrape'   # replace w/ github
 
 ################   CUSTOMIZATION  #########################################
 #  Set up custom parameters in your searchwords.txt file and at top of jobwords.py
 #
 
 #
-#  TODO: distrib branch
+#  TODO: github.iscrape master branch
 #
 #    4) permute search URL to prevent count limit
 #
@@ -39,14 +40,19 @@ HTML = True
 if jw.TESTING:         ###  set this test flag in jobwords
     MAX_PAGES = 4
     delayscale = 1.0
-    cities = ['Dallas', 'Los Angeles']  # a short list for testing
+    citiestmp =  cities
+    random.shuffle(citiestmp)
+    cities = citiestmp[0:2]  # a short randomly selected city list for testing
     print '\n\n                  TESTING MODE\n\n'
 else:
     MAX_PAGES = 60
     delayscale = 4.0    # slow down for big production searches
     print '\n\n                  PRODUCTION MODE  (', len(cities), 'cities)\n                 (this might take an hour or more) \n'
 
+#
 #nl.download('stopwords')  # you need to uncomment this ONCE - then the words stay downloaded
+#
+
 stop_words = set(stopwords.words("english")) # Filter out any stop words
  
 def get_job_descrip(job):
@@ -135,10 +141,14 @@ def outputcsv(of,job):
 ofname = 'jobs.csv'
 of = open(ofname, 'w')
 
+
+today_st = '{:%B %d, %Y}'.format(datetime.datetime.now())
+ 
 if HTML:
     hname = 'jobs.html'
     oh = open(hname,'w')
-    oh.write(jw.html_prefix)  # start of the html page
+    # insert details into HTML before the output table
+    oh.write(jw.html_prefix.replace('XXXdateXXX', today_st+ '  for ' + evaluator.jobtarget))  # start of the html page
     
 tpages = 0
 

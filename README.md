@@ -6,8 +6,9 @@ This is a user-configurable tool to scrape Indeed.com for job data.
 
 ### how to use:
 
-You will search Indeed.com for a list of cities you are interested in.  You will specify a search 
-query, and then one or more "categories" by which you can rank the results.   Indeed has a permissive search 
+You can use this to  search Indeed.com for a list of cities you are interested in.  
+You specify a search query using a text file, 
+and then one or more "categories" by which you can rank the results.   Indeed has a permissive search 
 strategy so it helps to experiment with search setup.
 
 #### Search setup
@@ -23,16 +24,38 @@ strategy so it helps to experiment with search setup.
             1.  name the category via the `**Category` tag
             2. `**Seek`'   followed by comma-separated words  and pairs of words. (lower case)
             3. `**Avoid`'  followed by comma-separated words to avoid (lower case)        
-        5. `**Cities`:  follow this with a comma-separated list of cities  (capitolized)
+        5. `**Cities`:  follow this with a comma-separated list of cities  (capitalized)
+        (in testing mode, a short list of cities is substituted)
 
 2. run the script:
-   `> python iscrape.py`  
-   
+   `> python iscrape.py`
+
+    Delays are inserted to keep server loads down.   A big search can take on the order of 
+1hr. 
+
 3. your output will be:
-    * `jobs.csv`  a file that can be opened with Excel or LibreOffice
+    * `jobs.csv`  a file that can be opened with Excel or LibreOffice.   The scores in columns E...
+    refer to your categories (in txt file order).
     * `jobs.html` a web page that can be opened by your browser (`<ctl>O`)
 
-4. use the testing option for quicker preliminary results:
+4. use the testing option for quicker preliminary search results:
     * `> python iscrape.py  TESTING`
 
-This package was developed at GIX to predict job opportunties for the MSTI(Robotics) program graduates. 
+    
+### Installation
+
+You need the following python packages: 
+
+* nltk  (`sudo pip install nltk`)
+* nltk stopwords  (you have to download the actual words just one time after installation, 
+search for 'stopwords' in `iscrape.py` for a line to uncomment for this).
+* BeautifulSoup (`sudo pip install bs4` on linux)
+* requests  (`sudo pip install requests`)
+
+### Unit tests:
+*   `> python jobwords.py` will run some.   Tests rely on `testsearch.txt` so do not
+modify that file. 
+
+This package was developed at [GIX](https://gixnetwork.org) to predict job opportunties for the New Master of Science in Technology Innovation, [MSTI(Robotics) program](https://gixnetwork.org/program/msti/) graduates. 
+
+

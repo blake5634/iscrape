@@ -203,7 +203,7 @@ html_prefix = '''<!doctype html>
 <head>
   <meta charset="utf-8">
 
-  <title>GIX Indeed search results</title> 
+  <title>Indeed search results</title> 
 
 <style>
 table {
@@ -231,6 +231,7 @@ table#t01 th {
    
 </head>
 <body>
+<h3> Indeed Job search results retrieved on XXXdateXXX </h3>
 <div class="w3-white w3-padding notranslate w3-padding-16">
 <table id="t01">
  <tr>
