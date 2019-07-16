@@ -1,0 +1,50 @@
+#     Test search setup for testing and for example
+#
+#      to test:   > python jobwords.py
+#
+
+**SearchName     first_data_science_job      # a name for your own reference to this search
+
+#   a  search key for Indeed, examples: 'data science', 'software engineer', 'banker'
+#   (must be in single quotes'')
+**IndeedSearch     'data science'
+
+# one or more words for Indeed to avoid (comma separated)
+**IndeedAvoid   nurse, camp
+
+#
+#  Categories of search (one or more)
+#
+
+# give a name to your search category
+**Category  Computer Science
+ 
+# the things you WANT to appear
+*Seek
+computer science, cs, algorithm, search, vision, deep learning, artificial intelligence, ai, deep networks, deep learning, motion planning, graph, planner, planning, slam, perception
+
+# words to avoid
+*Avoid
+
+
+**Category   DataScienceStartup
+*Seek 
+startup, start-up, start up, data scientist, scraping, machine learning, program manager, data, python, matlab, tableau
+
+
+*Avoid
+ maintenance, technician, tester, operations, cook, clerk, administrator, hr, rpa
+ 
+**Category    Academic
+
+*Seek
+phd, reu, masters, scholarship, tenure, university, college, institute, research, teaching,special issue, call for papers, cfp, faculty,professor, student,  scientist, post-doc, postdoc, post doc, doctoral 
+
+*Avoid
+ 
+ 
+# search theses cities
+
+**Cities 
+Seattle, Austin, Los Angeles, Pittsburgh 
+
