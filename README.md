@@ -27,6 +27,7 @@ strategy so it helps to experiment with search setup.
         5. `**Cities`:  follow this with a comma-separated list of cities  (capitalized)
         (in testing mode, a short list of cities is substituted)
 
+
 2. run the script:
    `> python iscrape.py`
 
@@ -41,6 +42,7 @@ strategy so it helps to experiment with search setup.
 4. use the testing option for quicker preliminary search results:
     * `> python iscrape.py  TESTING`
 
+ 
     
 ### Installation
 
@@ -58,4 +60,4 @@ modify that file.
 
 This package was developed at [GIX](https://gixnetwork.org) to predict job opportunties for the New Master of Science in Technology Innovation, [MSTI(Robotics) program](https://gixnetwork.org/program/msti/) graduates. 
 
-
+ 
