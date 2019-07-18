@@ -31,13 +31,13 @@ strategy so it helps to experiment with search setup.
 2. run the script:
    `> python iscrape.py`
 
-    Delays are inserted to keep server loads down.   A big search can take on the order of 
-1hr. 
+    Delays are inserted to keep server loads down.   A big search can take on the order of 1hr. 
 
 3. your output will be:
-    * `jobs.csv`  a file that can be opened with Excel or LibreOffice.   The scores in columns E...
+    * `jobs_xxxxxxxxxxx.csv`  a file that can be opened with Excel or LibreOffice, where `xxxxx` will be 
+    the time and title of your search.   The scores in columns E...
     refer to your categories (in txt file order).
-    * `jobs.html` a web page that can be opened by your browser (`<ctl>O`)
+    * `jobs_xxxxxxxxxxx.html` a web page that can be opened by your browser (`<ctl>O`)
 
 4. use the testing option for quicker preliminary search results:
     * `> python iscrape.py  TESTING`

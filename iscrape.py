@@ -137,15 +137,22 @@ def outputcsv(of,job):
 
 #searchplus = 'embedded'   # for testing variety
 
-# output file
-ofname = 'jobs.csv'
+
+# today's date
+today_st = '{:%B %d, %Y}'.format(datetime.datetime.now())
+
+today_file = today_st.replace(',','').replace(' ','_')
+print '>>>',today_st, today_file
+
+# output files
+basename = 'jobs_' + today_file +'_' + evaluator.jobtarget
+ofname = basename + '.csv'
 of = open(ofname, 'w')
 
 
-today_st = '{:%B %d, %Y}'.format(datetime.datetime.now())
  
 if HTML:
-    hname = 'jobs.html'
+    hname = basename+'.html'
     oh = open(hname,'w')
     # insert details into HTML before the output table
     oh.write(jw.html_prefix.replace('XXXdateXXX', today_st+ '  for ' + evaluator.jobtarget))  # start of the html page
