@@ -336,10 +336,10 @@ if __name__=='__main__':
     fs = 'read search words (readwords(fname)) --  FAIL'
     fname = 'testsearch.txt'
     cities, sc = readwords('testsearch.txt')
-    s0 = sc.categories[0]
+    s0 = sc.categories[1]
     s2 = sc.categories[2]
     assert s0[0] == 'DataScienceStartup',fs
-    assert s0[1][3] == 'machine learning', fs
+    assert s0[1][3] == 'data scientist', fs
     assert s2[0] == 'Academic', fs
     assert s2[1][4] == 'tenure',fs
     
