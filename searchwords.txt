@@ -43,7 +43,7 @@ phd, reu, masters, scholarship, tenure, university, college, institute, research
 *Avoid
  
  
-# search theses cities
+# search theses cities (keep your **Cities at end of txt file)
 
 **Cities 
 Seattle, Austin, Los Angeles, Pittsburgh 

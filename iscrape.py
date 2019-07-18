@@ -40,8 +40,7 @@ HTML = True
 if jw.TESTING:         ###  set this test flag in jobwords
     MAX_PAGES = 4
     delayscale = 1.0
-    citiestmp =  cities
-    random.shuffle(citiestmp)
+    citiestmp =  random.sample(cities, len(cities))
     cities = citiestmp[0:2]  # a short randomly selected city list for testing
     print '\n\n                  TESTING MODE\n\n'
 else:
@@ -142,7 +141,6 @@ def outputcsv(of,job):
 today_st = '{:%B %d, %Y}'.format(datetime.datetime.now())
 
 today_file = today_st.replace(',','').replace(' ','_')
-print '>>>',today_st, today_file
 
 # output files
 basename = 'jobs_' + today_file +'_' + evaluator.jobtarget
