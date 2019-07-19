@@ -105,30 +105,32 @@ class scorer:
     def evaluate(self,txt): # txt is a list of words
         assert len(self.categories) > 0, 'scorer: no categories have been set up '
         scores = []
+        keywords = {}
         for cat in self.categories:
             stmp = 0
             bgtxt = make_bigrams(txt) # get bigrams in txt
             gbg = get_bigrams(cat[1])  #'good' bigrams
             bbg = get_bigrams(cat[2])  #'bad' bigrams
             # good words and bigrams for this cat
-            #tg = []
-            #tb = []
+            tg = []
+            tb = []
             for w in cat[1]:
                 if w in txt:
                     stmp += 1
-                    #tg.append(w)
+                    tg.append(w)
             stmp += score_bigrams(gbg, bgtxt)
             # bad words and bigrams for this cat
             for w in cat[2]:
                 if w in txt:
                     stmp -= 1
-                    #tb.append(w)
+                    tb.append(w)
             stmp -= score_bigrams(bbg, bgtxt)
             scores.append(int(stmp))
             #print 'categ:', cat[0]
             #print '       good:',tg, '    score: ', stmp
             #print '        bad:',tb
-        return scores
+            keywords[cat[0]] = [tg,tb]  # 'good' and 'bad' keywords key is category name / cat[0]
+        return scores, keywords
           
 #
 #  read in the searchwords file and return cities and scorer
@@ -240,7 +242,7 @@ table#t01 th {
     <th>Job Scores</th>
     <th>Company</th>
     <th>City</th>
-    <th>URL</th>
+    <th>keyword matches</th>
  </tr>
 
 '''

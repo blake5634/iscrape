@@ -33,7 +33,7 @@ startup, start-up, start up, data scientist, scraping, machine learning, program
 
 
 *Avoid
- maintenance, technician, tester, operations, cook, clerk, administrator, hr, rpa
+ maintenance, technician, tester, operations, cook, clerk, admin, hr, rpa, oracle, dba 
  
 **Category    Academic
 

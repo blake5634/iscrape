@@ -231,12 +231,16 @@ for city in cities:
     for ps in pagecollection:
         l = extract_job_data_from_page_soup(ps)
         cityjoblist = cityjoblist + l
-        
+    origlen = len(cityjoblist) # store original # of jobs
+    
+    
     #print ' received ', len(cityjoblist), ' jobs'
     stale = 0
     dupes = 0
     
-    b=[]
+    b=[] 
+    # get rid of stales and duplicates in cityjoblist
+
     # get rid of postings more than 30 days old
     for i in range(len(cityjoblist)):
         daysago = cityjoblist[i]['date posted']
@@ -248,9 +252,7 @@ for city in cities:
             b.append(cityjoblist[i])
     cityjoblist = b
     
-    # get rid of duplicates in cityjoblist
-    origlen = len(cityjoblist)
-    dupelist = [] # testing only
+    dupelist = [] # store dupes for testing only
     ulist = []
     for i,j in enumerate(cityjoblist):  # if urls same dedup. 
         ulist.append(j['url'])
@@ -260,7 +262,7 @@ for city in cities:
             b.append(cityjoblist[i])
         else:
             dupes += 1
-            dupelist.append(j)  # keep track
+            dupelist.append(j)  # keep track for test purposes
     cityjoblist = b
     
     newlen = len(cityjoblist)
@@ -276,9 +278,13 @@ for city in cities:
         M = False
         job = get_job_descrip(job)
         
-        #job['scorelist'] = jw.scoretxt(job)
-        scores_txt = evaluator.evaluate(job['description'])
-        scores_title = evaluator.evaluate(job['title'].lower())
+        # scores = vector of numerical scores (len(scores) == # of categories)
+        # kw  = dictionary of good and bad kw matches by category:
+        #           keywords[cat] = [tg,tb]  # 'good' and 'bad' matching keyword lists
+        scores_txt,   kwtx = evaluator.evaluate(job['description'])
+        scores_title, kwti = evaluator.evaluate(job['title'].lower())
+        job['kwtx'] = kwtx  # kws in text
+        job['kwti'] = kwti  # kws in title 
         s = []
         # combine scores to weight the title words 
         for i,st in enumerate(scores_txt):
@@ -303,11 +309,16 @@ for city in cities:
  #sorted(student_objects, key=lambda student: student.age) 
 alljoblist = sorted(alljoblist, key=lambda j: j['scorelist'][1], reverse=True)  # sort by MSTI score (scorelist[1])
 
+
+##  TODO:   collect keyword matches and put them in last column.
+##  
 if HTML:
     for i,job in enumerate(alljoblist):
-        html = '<tr><td>'+str(i)+'</td><td>'+job['title']+'</td>\n'
+        html = '<tr><td>'+str(i+1)+'</td><td><a href='+job['url']+'>'+job['title']+'</a></td>\n'
         html += '<td>' + str(job['scorelist']) +'</td>'
-        html += '<td>  ' + job['company'] + ' </td><td> ' + job['location'] + '</td><td> <a href='+job['url']+'> [Link] </a></td></tr>\n\n' 
+        html += '<td>  ' + job['company'] + ' </td>'
+        html += '<td> ' + job['location'] + '</td>\n'
+        html += '<td> ' + str(job["kwtx"]) + '</td></tr>\n\n' 
         oh.write(html.encode('utf-8'))
 
 
