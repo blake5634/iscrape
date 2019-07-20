@@ -324,11 +324,13 @@ if __name__=='__main__':
     #print s
     fs = 'scorer class FAIL'
      
-    s1 =  s.evaluate(txt1)
+    s1, kw =  s.evaluate(txt1)
+    #print s1, txt1
+    #print 'scorer test 1 keywords:',kw
     assert s1 == [1,1,1], fs
-    s2 =  s.evaluate(txt2)
+    s2, kw =  s.evaluate(txt2)
     assert s2 == [2,1,0], fs
-    s3 = s.evaluate(txt3)
+    s3, kw = s.evaluate(txt3)
     assert s3 == [-1,0,-1]
     
     
