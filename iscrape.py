@@ -278,23 +278,32 @@ for city in cities:
         M = False
         job = get_job_descrip(job)
         
+        
         # scores = vector of numerical scores (len(scores) == # of categories)
         # kw  = dictionary of good and bad kw matches by category:
         #           keywords[cat] = [tg,tb]  # 'good' and 'bad' matching keyword lists
         scores_txt,   kwtx = evaluator.evaluate(job['description'])
         scores_title, kwti = evaluator.evaluate(job['title'].lower())
-        job['kwtx'] = kwtx  # kws in text
-        job['kwti'] = kwti  # kws in title 
+        
+        ############
+        # scoring
         s = []
         # combine scores to weight the title words 
         for i,st in enumerate(scores_txt):
             s.append(st+jw.titleweight*scores_title[i])
         job['scorelist'] = s
         
+         ############
+        # collecting keywords
+        sortcatname =evaluator.categories[1][0]     # for historical reasons! 
+        kw1 = kwtx[sortcatname] # kws in text for 2nd category (historical!)
+        kw2 = kwti[sortcatname] # kws in title for 2nd category (historical!) 
+        job['kwtx'] = [sortcatname, kw1, kw2] 
+        
         alljoblist.append(job)   # store them up for a big sort
          
         if jw.TESTING:
-            print '--------------------- ',ij
+            print 'job',ij
             print job['title']
             print job['company'], job['location']
             print '     ', job['summary'][0:100]
