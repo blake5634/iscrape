@@ -172,7 +172,11 @@ for city in cities:
     print '\n\n'
     
     # search indeed using terms from scorer instance.
+    print 'Indeed search: ',evaluator.indeedsearch
+    print 'Indeed avoid:  ',evaluator.indeedavoid
     current_url = 'https://www.indeed.com/jobs?q='+evaluator.indeedsearch+evaluator.indeedavoid+'++%2490+-+%24125%2C000&l='+city+'&ts=1561653578141&rq=1&fromage=last'
+    
+    current_url = 'https://www.indeed.com/jobs?q='+evaluator.indeedsearch+evaluator.indeedavoid+'&l='+city
     print current_url[0:100]
     
     
@@ -293,11 +297,20 @@ for city in cities:
             s.append(st+jw.titleweight*scores_title[i])
         job['scorelist'] = s
         
+        redfont = '<font color="red">'
+        grefont = '<font color="green">'
+        ccl = '</font>'  # close the color 
          ############
-        # collecting keywords
+        # collecting and formatting keywords: red = avoid words found, green = good words found
         sortcatname =evaluator.categories[1][0]     # for historical reasons! 
-        kw1 = kwtx[sortcatname] # kws in text for 2nd category (historical!)
-        kw2 = kwti[sortcatname] # kws in title for 2nd category (historical!) 
+        # text kws
+        kw1g = kwtx[sortcatname][0]  # good words 
+        kw1b = kwtx[sortcatname][1]  # bad words
+        # title kws
+        kw2g = kwti[sortcatname][0]
+        kw2b = kwti[sortcatname][1]  # bad words
+        kw1 = grefont + str(kw1g) + ccl + redfont + str(kw1b) + ccl # kws in text for 2nd category (historical!)
+        kw2 = grefont + str(kw2g) + ccl + redfont + str(kw2b) + ccl # kws in title for 2nd category (historical!) 
         job['kwtx'] = [sortcatname, kw1, kw2] 
         
         alljoblist.append(job)   # store them up for a big sort
@@ -356,8 +369,8 @@ if False:
     for j in dupelist:
         j=get_job_descrip(j)
         #job['scorelist'] = jw.scoretxt(job)
-        scores_txt = evaluator.evaluate(j['description'])
-        scores_title = evaluator.evaluate(j['title'])
+        scores_txt, kw1    = evaluator.evaluate(j['description'])
+        scores_title, kw2  = evaluator.evaluate(j['title'])
         s = []
         # combine scores to weight the title words 
         for i,st in enumerate(scores_txt):

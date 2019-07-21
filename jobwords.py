@@ -114,16 +114,18 @@ class scorer:
             # good words and bigrams for this cat
             tg = []
             tb = []
-            for w in cat[1]:
-                if w in txt:
-                    stmp += 1
-                    tg.append(w)
+            for w in cat[1]: # the 'good' words
+                for t in txt: # t is a word
+                    if t.startswith(w):
+                        stmp += 1
+                        tg.append(w)
             stmp += score_bigrams(gbg, bgtxt)
             # bad words and bigrams for this cat
-            for w in cat[2]:
-                if w in txt:
-                    stmp -= 1
-                    tb.append(w)
+            for w in cat[2]: # the 'bad' words
+                for t in txt:
+                    if t.startswith(w):
+                        stmp -= 1
+                        tb.append(w)
             stmp -= score_bigrams(bbg, bgtxt)
             scores.append(int(stmp))
             #print 'categ:', cat[0]
@@ -325,8 +327,8 @@ if __name__=='__main__':
     fs = 'scorer class FAIL'
      
     s1, kw =  s.evaluate(txt1)
-    #print s1, txt1
-    #print 'scorer test 1 keywords:',kw
+    print s1, txt1
+    print 'scorer test 1 keywords:',kw
     assert s1 == [1,1,1], fs
     s2, kw =  s.evaluate(txt2)
     assert s2 == [2,1,0], fs
