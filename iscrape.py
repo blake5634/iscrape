@@ -287,8 +287,8 @@ for city in cities:
         # kw  = dictionary of good and bad kw matches by category:
         #           keywords[cat] = [tg,tb]  # 'good' and 'bad' matching keyword lists
         scores_txt,   kwtx = evaluator.evaluate(job['description'])
-        scores_title, kwti = evaluator.evaluate(job['title'].lower())
-        
+        scores_title, kwti = evaluator.evaluate(job['title'].lower().split())
+                
         ############
         # scoring
         s = []
@@ -300,19 +300,25 @@ for city in cities:
         redfont = '<font color="red">'
         grefont = '<font color="green">'
         ccl = '</font>'  # close the color 
-         ############
+        #############
+        #  The 'sort category' (category[1]) is a special one that we look at in the most 
+        #    depth.  The html output file is sorted in descending order of the score for the 
+        #    sortcategory  (i.e. sort descending on job['scorelist'][1])
+        #
         # collecting and formatting keywords: red = avoid words found, green = good words found
         sortcatname =evaluator.categories[1][0]     # for historical reasons! 
-        # text kws
+        # text keywords
         kw1g = kwtx[sortcatname][0]  # good words 
         kw1b = kwtx[sortcatname][1]  # bad words
-        # title kws
+        # title keywords
         kw2g = kwti[sortcatname][0]
         kw2b = kwti[sortcatname][1]  # bad words
-        kw1 = grefont + str(kw1g) + ccl + redfont + str(kw1b) + ccl # kws in text for 2nd category (historical!)
-        kw2 = grefont + str(kw2g) + ccl + redfont + str(kw2b) + ccl # kws in title for 2nd category (historical!) 
-        job['kwtx'] = [sortcatname, kw1, kw2] 
+        job['kwtx'] = [sortcatname, [kw1g,kw1b], [kw1g,kw1b]] 
+
+        kw1 = grefont + str(kw1g) + ccl + redfont + str(kw1b) + ccl # kws in text for sort category
+        kw2 = grefont + str(kw2g) + ccl + redfont + str(kw2b) + ccl # kws in title for sort category
         
+        job['kwhtml'] = '<div>'+ sortcatname+'|  Descrip:'+kw1+'|   Title:'+kw2+'</div>'
         alljoblist.append(job)   # store them up for a big sort
          
         if jw.TESTING:
@@ -340,7 +346,7 @@ if HTML:
         html += '<td>' + str(job['scorelist']) +'</td>'
         html += '<td>  ' + job['company'] + ' </td>'
         html += '<td> ' + job['location'] + '</td>\n'
-        html += '<td> ' + str(job["kwtx"]) + '</td></tr>\n\n' 
+        html += '<td> ' + str(job["kwhtml"]) + '</td></tr>\n\n' 
         oh.write(html.encode('utf-8'))
 
 
