@@ -103,6 +103,7 @@ class scorer:
         self.categories.append([name, gw, bw])
 
     def evaluate(self,txt): # txt is a list of words
+        assert len(txt) > 1, 'scorer, txt arg must be a list of words'
         assert len(self.categories) > 0, 'scorer: no categories have been set up '
         scores = []
         keywords = {}
@@ -326,13 +327,13 @@ if __name__=='__main__':
     #print s
     fs = 'scorer class FAIL'
      
-    s1, kw =  s.evaluate(txt1)
+    s1, kw =  s.evaluate(txt1.split())
     print s1, txt1
     print 'scorer test 1 keywords:',kw
     assert s1 == [1,1,1], fs
-    s2, kw =  s.evaluate(txt2)
+    s2, kw =  s.evaluate(txt2.split())
     assert s2 == [2,1,0], fs
-    s3, kw = s.evaluate(txt3)
+    s3, kw = s.evaluate(txt3.split())
     assert s3 == [-1,0,-1]
     
     
