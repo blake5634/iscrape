@@ -103,7 +103,7 @@ class scorer:
         self.categories.append([name, gw, bw])
 
     def evaluate(self,txt): # txt is a list of words
-        assert len(txt) > 1, 'scorer, txt arg must be a list of words'
+        assert isinstance(txt, list), 'scorer, txt arg must be a list of words'
         assert len(self.categories) > 0, 'scorer: no categories have been set up '
         scores = []
         keywords = {}
